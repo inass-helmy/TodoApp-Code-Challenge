@@ -1,31 +1,34 @@
-import React from 'react'
-import { Provider, Subscribe } from 'unstated'
+import React from 'react';
+import { Provider, Subscribe } from 'unstated';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import TodosContainer from './store'
+import TodosContainer from './store';
 
-import TodoList from './components/TodoList'
-import AddTodo from './components/AddTodo'
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
+import FilterTodos from './components/FilterTodos';
 
-function App () {
+function App() {
   return (
     <Provider>
       <Wrapper>
         <Subscribe to={[TodosContainer]}>
           {todos => {
-            const list = todos.getList()
+            const list = todos.getList();
             return (
               <TodosWrapper>
                 <AddTodo onAddTodo={todos.createTodo} />
+                {/* add filtering component to handle filtering the todods and return filtered list */}
+                <FilterTodos onFilterTodos={todos.filterList} />
                 <TodoList items={list} toggleComplete={todos.toggleComplete} />
               </TodosWrapper>
-            )
+            );
           }}
         </Subscribe>
       </Wrapper>
     </Provider>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -37,12 +40,12 @@ const Wrapper = styled.div`
   justify-content: center;
   font-size: 24px;
   color: white;
-`
+`;
 
 const TodosWrapper = styled.div`
   max-width: 500px;
   display: flex;
   flex-direction: column;
-`
+`;
 
-export default App
+export default App;

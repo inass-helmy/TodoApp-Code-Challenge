@@ -1,22 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const AddTodo = ({ onAddTodo }) => {
+  let inputRef = React.createRef();
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
-      onAddTodo(e.target.value)
+      onAddTodo(e.target.value);
+      //clear input field after adding new Todo
+      inputRef.current.value = '';
     }
-  }
+  };
 
   return (
-    <Input
-      type='text'
-      onKeyPress={handleKeyPress}
-      placeholder='Add new todo...'
-    />
-  )
-}
+    <Input type="text" onKeyPress={handleKeyPress} placeholder="Add new todo..." ref={inputRef} />
+  );
+};
 
 const Input = styled.input`
   background: #3b4049;
@@ -32,6 +31,6 @@ const Input = styled.input`
   &::placeholder {
     color: #8d96a8;
   }
-`
+`;
 
-export default AddTodo
+export default AddTodo;
